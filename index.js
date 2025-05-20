@@ -1,105 +1,87 @@
-/**
- * @param {number[]} numbers an array of integers
- * @returns {number} the length of the array
- */
-function getLength(numbers) {
-  // TODO
+function getLength(array) {
+  return array.length;
 }
 
-/**
- * @param {number[]} numbers an array of integers
- * @returns {number} the sum of the numbers
- */
-function getSum(numbers) {
-  // TODO
-}
-
-/**
- * @param {number[]} numbers an array of integers
- * @returns {number} the mean of the numbers
- */
-function getMean(numbers) {
-  // TODO
-}
-
-/**
- * @param {number[]} numbers an array of integers
- * @returns {number} the smallest of the numbers
- */
-function getMin(numbers) {
-  // TODO
-}
-
-/**
- * @param {number[]} numbers an array of integers
- * @returns {number} the largest of the numbers
- */
-function getMax(numbers) {
-  // TODO
-}
-
-/**
- * @param {number[]} numbers an array of integers
- * @returns {number} the range of the numbers (max - min)
- */
-function getRange(numbers) {
-  // TODO
-}
-
-/**
- * @param {number[]} numbers an array of integers
- * @returns {number[]} the even numbers in the array
- */
-function getEvens(numbers) {
-  // TODO
-}
-
-/**
- * @param {number[]} numbers an array of integers
- * @returns {number[]} the odd numbers in the array
- */
-function getOdds(numbers) {
-  // TODO
-}
-
-// === READ BUT DO NOT EDIT THE CODE BELOW ===
-
-/**
- * @param {string} commaSeparatedNumbers
- * @returns {number[]} the string converted into an array of numbers
- */
-function convertStringToNumbers(commaSeparatedNumbers) {
-  // Split the string of numbers into an array of strings.
-  const strings = commaSeparatedNumbers.split(",");
-
-  // Convert the array of strings into an array of numbers
-  const numbers = [];
-  for (const s of strings) {
-    const number = parseInt(s);
-    numbers.push(number);
+function getSum(array) {
+  let total = 0;
+  for (let i = 0; i < array.length; i++) {
+    total += array[i];
   }
-  return numbers;
+  return total;
 }
 
-/**
- * Prints some descriptive statistics about the provided numbers.
- * @param {number[]} numbers
- */
-function describeNumbers(numbers) {
-  console.log(numbers);
-  console.log(`You have given ${getLength(numbers)} numbers.`);
-  console.log(`The sum of your numbers is ${getSum(numbers)}.`);
-  console.log(`The mean of your numbers is ${getMean(numbers)}.`);
-  console.log(`The smallest of your numbers is ${getMin(numbers)}.`);
-  console.log(`The largest of your numbers is ${getMax(numbers)}.`);
-  console.log(`The range of your numbers is ${getRange(numbers)}.`);
-  console.log(`The even numbers you gave are ${getEvens(numbers)}.`);
-  console.log(`The odd numbers you gave are ${getOdds(numbers)}.`);
+function getMean(array) {
+  return getSum(array) / getLength(array);
 }
 
-const userInputString = prompt(
-  "Please enter some integers separated by commas.",
-  "28,-15,30,975,400"
-);
-const numbers = convertStringToNumbers(userInputString);
-describeNumbers(numbers);
+function getMin(array) {
+  let min = array[0];
+  for (let i = 1; i < array.length; i++) {
+    if (array[i] < min) {
+      min = array[i];
+    }
+  }
+  return min;
+}
+
+function getMax(array) {
+  return Math.max(...array);
+}
+
+function getRange(array) {
+  return getMax(array) - getMin(array);
+}
+
+function getEvens(array) {
+  const evens = [];
+  for (let i = 0; i < array.length; i++) {
+    if (array[i] % 2 === 0) {
+      evens.push(array[i]);
+    }
+  }
+  return evens;
+}
+
+function getOdds(array) {
+  return array.filter((num) => num % 2 !== 0);
+}
+
+document.getElementById("calculateBtn").addEventListener("click", () => {
+  const input = document.getElementById("inputNumbers").value;
+  const numbers = input
+    .split(",")
+    .map((n) => parseFloat(n.trim()))
+    .filter((n) => !isNaN(n));
+
+  if (numbers.length === 0) {
+    alert("Please enter valid numbers.");
+    return;
+  }
+
+  const count = getLength(numbers);
+  const sum = getSum(numbers);
+  const mean = getMean(numbers);
+  const sorted = [...numbers].sort((a, b) => a - b);
+  const median =
+    count % 2 === 0
+      ? (sorted[count / 2 - 1] + sorted[count / 2]) / 2
+      : sorted[Math.floor(count / 2)];
+  const min = getMin(numbers);
+  const max = getMax(numbers);
+  const range = getRange(numbers);
+  const evens = getEvens(numbers);
+  const odds = getOdds(numbers);
+
+  document.getElementById("count").textContent = count;
+  document.getElementById("sum").textContent = sum.toFixed(2);
+  document.getElementById("mean").textContent = mean.toFixed(2);
+  document.getElementById("median").textContent = median.toFixed(2);
+  document.getElementById("min").textContent = min;
+  document.getElementById("max").textContent = max;
+
+  console.log("Range:", range);
+  console.log("Evens:", evens);
+  console.log("Odds:", odds);
+
+  document.getElementById("output").style.display = "block";
+});

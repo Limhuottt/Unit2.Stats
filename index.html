@@ -1,10 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Stats</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UTF-8" />
+    <title>Statistics Calculator</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 2rem;
+        max-width: 600px;
+      }
+      input,
+      button {
+        padding: 0.5rem;
+        margin-top: 1rem;
+      }
+      .output {
+        margin-top: 2rem;
+        background-color: #f9f9f9;
+        padding: 1rem;
+        border-radius: 5px;
+      }
+    </style>
   </head>
   <body>
-    <h1>Check the browser console :)</h1>
+    <h1>Statistics Calculator</h1>
+    <p>Enter numbers separated by commas:</p>
+    <input type="text" id="inputNumbers" placeholder="e.g. 1, 2, 3.5, 4" />
+    <br />
+    <button id="calculateBtn">Calculate Statistics</button>
+
+    <div class="output" id="output" style="display: none">
+      <h2>Results</h2>
+      <p><strong>Count:</strong> <span id="count"></span></p>
+      <p><strong>Sum:</strong> <span id="sum"></span></p>
+      <p><strong>Mean:</strong> <span id="mean"></span></p>
+      <p><strong>Median:</strong> <span id="median"></span></p>
+      <p><strong>Min:</strong> <span id="min"></span></p>
+      <p><strong>Max:</strong> <span id="max"></span></p>
+    </div>
+
+    <script src="index.js"></script>
   </body>
 </html>
